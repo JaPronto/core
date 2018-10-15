@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\User;
 
+use App\Repositories\UserRepository;
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DeleteUserRequest extends FormRequest
@@ -13,7 +15,9 @@ class DeleteUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        $user = $this->getModel('user', User::class);
+
+        return $this->user()->can('delete', $user);
     }
 
     /**

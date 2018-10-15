@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ShowUserRequest extends FormRequest
@@ -13,7 +14,8 @@ class ShowUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        $user = $this->getModel('user', User::class);
+        return !$this->user() || $this->user()->can('show', $user);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ViewUserRequest extends FormRequest
@@ -13,7 +14,7 @@ class ViewUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('view', User::class);
     }
 
     /**

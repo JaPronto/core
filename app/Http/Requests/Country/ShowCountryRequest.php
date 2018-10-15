@@ -11,13 +11,11 @@ class ShowCountryRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @param CountryRepository $countryRepository
      * @return bool
      */
-    public function authorize(CountryRepository $countryRepository)
+    public function authorize()
     {
-        $country = $this->route('country');
-        $country = $country instanceof Country ? $country : $countryRepository->findByCode($country);
+        $country = $this->getModel('country', Country::class);
         return !$this->user() || $this->user()->can('show', $country);
     }
 

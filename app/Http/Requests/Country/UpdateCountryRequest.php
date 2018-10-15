@@ -25,8 +25,7 @@ class UpdateCountryRequest extends FormRequest
      */
     public function authorize()
     {
-        $country = $this->route('country');
-        $country = $country instanceof Country ? $country : $this->countryRepository->findByCode($country);
+        $country = $this->getModel('country', Country::class);
 
         return $this->user()->can('update', $country);
     }
@@ -38,9 +37,7 @@ class UpdateCountryRequest extends FormRequest
      */
     public function rules()
     {
-        $country = $this->route('country');
-        $country = $country instanceof Country ? $country : $this->countryRepository->findByCode($country);
-
+        $country = $this->getModel('country', Country::class);
 
         return [
             'name' => 'required|string',

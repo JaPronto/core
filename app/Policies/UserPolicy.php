@@ -9,6 +9,11 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user, $ability)
+    {
+        if ($user->hasRole('admin')) return true;
+    }
+
     /**
      * Determine whether the user can view the model.
      *
@@ -16,9 +21,21 @@ class UserPolicy
      * @param  \App\User  $model
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(User $user)
     {
-        //
+        return true;
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\User  $user
+     * @param  \App\User  $model
+     * @return mixed
+     */
+    public function show(User $user, User $model)
+    {
+        return true;
     }
 
     /**
@@ -29,7 +46,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +58,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        //
+        return $user->getKey() === $model->getKey();
     }
 
     /**
@@ -53,7 +70,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        //
+        return $user->getKey() === $model->getKey();
     }
 
     /**
@@ -65,7 +82,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        //
+        return $user->getKey() === $model->getKey();
     }
 
     /**
@@ -77,6 +94,6 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        //
+        return $user->getKey() === $model->getKey();
     }
 }

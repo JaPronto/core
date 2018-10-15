@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\DeleteUserRequest;
+use App\Http\Requests\User\ShowUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\ViewUserRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -12,7 +17,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ViewUserRequest $request)
     {
         //
     }
@@ -20,10 +25,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateUserRequest $request
+     * @return void
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
         //
     }
@@ -31,10 +36,11 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param  \App\User $user
+     * @param ShowUserRequest $request
+     * @return void
      */
-    public function show(User $user)
+    public function show(User $user, ShowUserRequest $request)
     {
         //
     }
@@ -42,11 +48,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param UpdateUserRequest $request
+     * @param  \App\User $user
+     * @return void
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         //
     }
@@ -54,10 +60,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param DeleteUserRequest $request
+     * @param  \App\User $user
+     * @return void
      */
-    public function destroy(User $user)
+    public function destroy(DeleteUserRequest $request,User $user)
     {
         //
     }
