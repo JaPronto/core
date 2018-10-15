@@ -9,18 +9,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Traits\HasApiResource;
 
-class CreateTest extends TestCase
+class CreateTest extends UserTest
 {
-    use DatabaseMigrations, HasApiResource, UserTest;
-
-
-    /**
-     *  Get the api resource for the test
-     */
-    function apiResource(): string
-    {
-        return 'user';
-    }
 
     /**
      * Test if unauthenticated users can hit the create user endpoint

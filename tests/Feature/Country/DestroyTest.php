@@ -6,18 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Tests\Traits\HasApiResource;
 
-class DestroyTest extends TestCase
+class DestroyTest extends CountryTest
 {
-    use HasApiResource, DatabaseMigrations, CountryTest;
-
-    /**
-     *  Get the api resource for the test
-     */
-    function apiResource(): string
-    {
-        return 'country';
-    }
-
     /**
      * Test if unauthenticated users can hit the destroy endpoint
      * @expected: false

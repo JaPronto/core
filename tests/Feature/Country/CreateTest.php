@@ -8,18 +8,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use Tests\Traits\HasApiResource;
 
-class CreateTest extends TestCase
+class CreateTest extends CountryTest
 {
-    use HasApiResource, DatabaseMigrations, DatabaseTransactions, CountryTest;
-
-    /**
-     *  Get the api resource for the test
-     */
-    function apiResource(): string
-    {
-        return 'country';
-    }
-
 
     /**
      * Check if unauthenticated users can hit the create country endpoint

@@ -8,24 +8,10 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Traits\HasApiResource;
 
-class UpdateTest extends TestCase
+class UpdateTest extends UserTest
 {
-    use DatabaseMigrations, UserTest, HasApiResource;
 
-    protected function setUp()
-    {
-        parent::setUp();
 
-        $this->installPassport();
-    }
-
-    /**
-     *  Get the api resource for the test
-     */
-    function apiResource(): string
-    {
-        return 'user';
-    }
 
     /**
      * Test unauthenticated users can hit the update endpoint

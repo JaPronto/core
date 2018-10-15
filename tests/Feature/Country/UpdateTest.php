@@ -6,17 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Tests\Traits\HasApiResource;
 
-class UpdateTest extends TestCase
+class UpdateTest extends CountryTest
 {
-    use DatabaseMigrations, HasApiResource, CountryTest;
-
-    /**
-     *  Get the api resource for the test
-     */
-    function apiResource(): string
-    {
-        return 'country';
-    }
 
     /**
      * Test if unauthenticated users can hit the update endpoint
