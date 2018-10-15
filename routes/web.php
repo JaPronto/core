@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/oauth/credentials', 'OAuth\CredentialsController@credentials')->middleware('tokens.enabled');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
