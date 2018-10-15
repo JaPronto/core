@@ -4,12 +4,13 @@ namespace Tests\Feature\Country;
 
 use App\Country;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use Tests\Traits\HasApiResource;
 
 class CreateTest extends TestCase
 {
-    use HasApiResource, DatabaseMigrations, CountryTest;
+    use HasApiResource, DatabaseMigrations, DatabaseTransactions, CountryTest;
 
     /**
      *  Get the api resource for the test
@@ -40,11 +41,31 @@ class CreateTest extends TestCase
      *  Check if the create country endpoint validation allow empty requests
      * @expected: false
      */
-    public function test_authenticated_user_can_hit_create_endpoint()
+    public function test_authenticated_common_user_can_hit_create_endpoint()
     {
         // First we authenticate the user with passport
         // Then we instantiate a new create request for countries endpoint
         $response = $this->authenticated()->create();
+
+        // Then we assert status is 403
+        // Because now we are sending authentication headers
+        // But we are not allowed to run this action
+        $response->assertStatus(403)
+            // Then we assert errors structure matches expected
+            ->assertSeeText('unauthorized');
+    }
+
+    /**
+     *  Check if authenticated users can hit the create country endpoint
+     * @expected: true
+     *  Check if the create country endpoint validation allow empty requests
+     * @expected: false
+     */
+    public function test_authenticated_admin_user_can_hit_create_endpoint()
+    {
+        // First we authenticate the user with passport
+        // Then we instantiate a new create request for countries endpoint
+        $response = $this->authenticatedAdmin()->create();
 
         // Then we assert status is 422
         // Because now we are sending authentication headers
@@ -67,12 +88,12 @@ class CreateTest extends TestCase
      * Test if country is successfully created when sending auth headers and correct params
      * @expected: true
      */
-    public function test_authenticated_user_can_successfully_create_country()
+    public function test_authenticated_admin_user_can_successfully_create_country()
     {
         // First we create a test country
         $country = $this->makeCountry();
         // Then we create a authenticated request for create country endpoint
-        $response = $this->authenticated()->create($country->toArray());
+        $response = $this->authenticatedAdmin()->create($country->toArray());
 
         // Then we assert that response has status 201 that means resource created
         $response->assertStatus(201)

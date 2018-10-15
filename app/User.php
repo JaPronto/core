@@ -39,4 +39,14 @@ class User extends Authenticatable
     {
         return $this->roles()->where('name', $role)->exists();
     }
+
+    public function assignRole($role)
+    {
+        return $this->roles()->attach(Role::where('name', $role)->first()->id);
+    }
+
+    public function removeRole($role)
+    {
+        return $this->roles()->detach(Role::where('name', $role)->first()->id);
+    }
 }

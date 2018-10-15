@@ -12,7 +12,20 @@ abstract class TestCase extends BaseTestCase
 
     public function authenticated($user = null)
     {
-        Passport::actingAs(create($user ?: User::class));
+        Passport::actingAs($user ?: create(User::class));
+
+        return $this;
+    }
+
+    public function authenticatedAdmin($user = null)
+    {
+        $user = $user ?: create(User::class);
+
+        if (!$user->hasRole('admin')) {
+            $user->assignRole('admin');
+        }
+
+        Passport::actingAs($user);
 
         return $this;
     }

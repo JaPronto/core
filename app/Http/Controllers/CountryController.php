@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Country;
 use App\Http\Requests\Country\CreateCountryRequest;
 use App\Http\Requests\Country\DeleteCountryRequest;
+use App\Http\Requests\Country\ShowCountryRequest;
 use App\Http\Requests\Country\UpdateCountryRequest;
+use App\Http\Requests\Country\ViewCountryRequest;
 use App\Http\Resources\CountryResource;
 use App\Repositories\CountryRepository;
 use Illuminate\Http\Request;
@@ -24,9 +26,10 @@ class CountryController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param ViewCountryRequest $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(ViewCountryRequest $request)
     {
         return CountryResource::collection($this->countryRepository->getAll(20, true));
     }
@@ -49,9 +52,10 @@ class CountryController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Country $country
+     * @param ShowCountryRequest $request
      * @return CountryResource
      */
-    public function show(Country $country)
+    public function show(Country $country, ShowCountryRequest $request)
     {
         return new CountryResource($country);
     }

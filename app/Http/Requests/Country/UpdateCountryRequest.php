@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Country;
 
+use App\Country;
 use App\Repositories\CountryRepository;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -24,7 +25,10 @@ class UpdateCountryRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('update', $this->route('country'));
+        $country = $this->route('country');
+        $country = $country instanceof Country ? $country : $this->countryRepository->findByCode($country);
+
+        return $this->user()->can('update', $country);
     }
 
     /**
@@ -34,13 +38,16 @@ class UpdateCountryRequest extends FormRequest
      */
     public function rules()
     {
+        $country = $this->route('country');
+        $country = $country instanceof Country ? $country : $this->countryRepository->findByCode($country);
+
 
         return [
             'name' => 'required|string',
             'code' => [
                 'required',
                 'string',
-                Rule::unique('countries', 'code')->ignore($this->route('country')->id)
+                Rule::unique('countries', 'code')->ignore($country->id)
             ]
         ];
     }

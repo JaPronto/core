@@ -24,7 +24,19 @@ class CountryPolicy
      * @param  \App\Country  $country
      * @return mixed
      */
-    public function view(User $user, Country $country)
+    public function view(User $user)
+    {
+        return true;
+    }
+
+    /**
+     * Determine whether the user can show the country.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Country  $country
+     * @return mixed
+     */
+    public function show(User $user, Country $country)
     {
         return true;
     }

@@ -42,7 +42,7 @@ class UpdateTest extends TestCase
      * Test if can update countries with empty params
      * @expected: false
      */
-    public function test_authenticated_users_can_hit_the_update_endpoint()
+    public function test_authenticated_common_users_can_hit_the_update_endpoint()
     {
         // First we create a test country
         $country = $this->createCountry();
@@ -52,6 +52,28 @@ class UpdateTest extends TestCase
 
         // Then we create an update request with auth headers and empty params
         $this->authenticated()->update($country->code, [])
+            // We assert status is 403, because now we are authenticated, but we are not able to execute this action
+            ->assertStatus(403)
+            // Then we assert we receive the message unauthorized
+            ->assertSeeText('unauthorized');
+    }
+
+    /**
+     * Test if authenticated users can hit the update endpoint
+     * @expected: true
+     * Test if can update countries with empty params
+     * @expected: false
+     */
+    public function test_authenticated_admin_users_can_hit_the_update_endpoint()
+    {
+        // First we create a test country
+        $country = $this->createCountry();
+
+        // Then we check if it was successfully added into the database
+        $this->assertDatabaseHas('countries', $country->toArray());
+
+        // Then we create an update request with auth headers and empty params
+        $this->authenticatedAdmin()->update($country->code, [])
             // We assert status is 422, because now we are authenticated, but request params are invalid
             ->assertStatus(422)
             // Then we assert errors structure matches expected
@@ -67,7 +89,7 @@ class UpdateTest extends TestCase
      * Test authenticated users can successfully update countries
      * @expected: true
      */
-    public function test_authenticated_users_can_update_countries()
+    public function test_authenticated_admin_users_can_update_countries()
     {
         // First we create a test country
         $country = $this->createCountry();
@@ -82,7 +104,7 @@ class UpdateTest extends TestCase
         ]);
 
         // Then we send the update request with $newCountry params
-        $response = $this->authenticated()->update($country->code, $newCountry->toArray());
+        $response = $this->authenticatedAdmin()->update($country->code, $newCountry->toArray());
 
         // Then we assert if country was successfully updated
         $response->assertStatus(200)

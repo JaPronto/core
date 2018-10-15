@@ -18,6 +18,8 @@ class CreateRolesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        resolve(DatabaseSeeder::class)->call(RolesTableSeeder::class);
     }
 
     /**

@@ -40,7 +40,7 @@ class DestroyTest extends TestCase
      * Test if authenticated users can hit the destroy endpoint and successfully soft-delete it
      * @expected: true
      */
-    public function test_authenticated_users_can_hit_destroy_countries_endpoint()
+    public function test_authenticated_common_users_can_hit_destroy_countries_endpoint()
     {
         // First we create a test country
         $country = $this->createCountry();
@@ -50,6 +50,32 @@ class DestroyTest extends TestCase
 
         // Then we setup auth headers from passport
         $this->authenticated()
+            // Then we hit the destroy endpoint
+            ->destroy($country->code)
+            // Then we assert status is 303 because now we are authenticated, but we are not allowed to do this action
+            ->assertStatus(403);
+
+        $countryData = $country->toArray();
+        $countryData['deleted_at'] = null;
+
+        // Then we assert database has updated record
+        $this->assertDatabaseHas('countries', $countryData);
+    }
+
+    /**
+     * Test if authenticated users can hit the destroy endpoint and successfully soft-delete it
+     * @expected: true
+     */
+    public function test_authenticated_admin_users_can_hit_destroy_countries_endpoint()
+    {
+        // First we create a test country
+        $country = $this->createCountry();
+
+        // Then we assert the country is successfully created on database
+        $this->assertDatabaseHas('countries', $country->toArray());
+
+        // Then we setup auth headers from passport
+        $this->authenticatedAdmin()
             // Then we hit the destroy endpoint
             ->destroy($country->code)
             // Then we assert status is 200 because now we are authenticated
@@ -80,7 +106,7 @@ class DestroyTest extends TestCase
             ->assertStatus(200);
 
         // Then we setup auth headers from passport
-        $this->authenticated()
+        $this->authenticatedAdmin()
             // Then we hit the destroy endpoint
             ->destroy($country->code)
             // Then we assert status is 200 because now we are authenticated
