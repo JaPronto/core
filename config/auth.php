@@ -105,5 +105,6 @@ return [
 
     'roles' => [
         'admin',
+        'user'
     ]
 ];
