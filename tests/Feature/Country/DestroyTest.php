@@ -6,18 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Tests\Traits\HasApiResource;
 
-class DestroyTest extends TestCase
+class DestroyTest extends CountryTest
 {
-    use HasApiResource, DatabaseMigrations, CountryTest;
-
-    /**
-     *  Get the api resource for the test
-     */
-    function apiResource(): string
-    {
-        return 'country';
-    }
-
     /**
      * Test if unauthenticated users can hit the destroy endpoint
      * @expected: false
@@ -82,10 +72,13 @@ class DestroyTest extends TestCase
             ->assertStatus(200);
 
         $countryData = $country->toArray();
-        unset($countryData['deleted_at']);
 
         // Then we assert database has updated record
-        $this->assertDatabaseHas('countries', $countryData);
+        $this->assertSoftDeleted('countries', [
+            'id' => $countryData['id'],
+            'name' => $countryData['name'],
+            'code' => $countryData['code']
+        ]);
     }
 
     /**
@@ -113,10 +106,14 @@ class DestroyTest extends TestCase
             ->assertStatus(200);
 
         $countryData = $country->toArray();
-        unset($countryData['deleted_at']);
 
         // Then we assert database has updated record
-        $this->assertDatabaseHas('countries', $countryData);
+        $this->assertSoftDeleted('countries', [
+            'id' => $countryData['id'],
+            'name' => $countryData['name'],
+            'code' => $countryData['code']
+        ]);
+
 
         // Then we check again if the country can be viewed by eloquent
         $this->show($country->code)

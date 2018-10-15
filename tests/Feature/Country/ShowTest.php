@@ -9,17 +9,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Traits\HasApiResource;
 
-class ShowTest extends TestCase
+class ShowTest extends CountryTest
 {
-    use DatabaseMigrations, HasApiResource, CountryTest;
-
-    /**
-     *  Get the api resource for the test
-     */
-    function apiResource(): string
-    {
-        return 'country';
-    }
 
     /**
      * Test if authenticated users can view country

@@ -9,18 +9,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Traits\HasApiResource;
 
-class CreateTest extends TestCase
+class CreateTest extends UserTest
 {
-    use DatabaseMigrations, HasApiResource, UserTest;
-
-
-    /**
-     *  Get the api resource for the test
-     */
-    function apiResource(): string
-    {
-        return 'user';
-    }
 
     /**
      * Test if unauthenticated users can hit the create user endpoint
@@ -122,6 +112,11 @@ class CreateTest extends TestCase
         $this->assertCount(2, User::get());
     }
 
+    /**
+     * Creates a new create user request
+     * @param array $data
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
     public function create($data = [])
     {
         return $this->makePostRequest('store', $data);

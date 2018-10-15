@@ -3,21 +3,9 @@
 namespace Tests\Feature\Auth;
 
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class LoginTest extends TestCase
+class LoginTest extends AuthTest
 {
-    use DatabaseMigrations;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->installPassport();
-    }
 
     /**
      * Test if any user can hit the oauth/token endpoint

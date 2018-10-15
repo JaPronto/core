@@ -4,16 +4,22 @@ namespace Tests\Feature\Country;
 
 
 use App\Country;
+use Tests\DatabaseActiveTest;
 
-trait CountryTest
+abstract class CountryTest extends DatabaseActiveTest
 {
-    public function createCountry()
+    function apiResource(): string
     {
-        return create(Country::class);
+        return 'country';
     }
 
-    public function makeCountry()
+    public function createCountry($attributes = [], $times = null)
     {
-        return make(Country::class);
+        return create(Country::class, $attributes, $times);
+    }
+
+    public function makeCountry($attributes = [], $times = null)
+    {
+        return make(Country::class, $attributes, $times);
     }
 }

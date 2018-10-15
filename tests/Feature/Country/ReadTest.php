@@ -7,9 +7,8 @@ use Illuminate\Foundation\Testing\TestResponse;
 use Tests\TestCase;
 use Tests\Traits\HasApiResource;
 
-class ReadTest extends TestCase
+class ReadTest extends CountryTest
 {
-    use DatabaseMigrations, HasApiResource, CountryTest;
 
     /**
      * Test if unauthenticated users can read countries

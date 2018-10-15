@@ -3,21 +3,9 @@
 namespace Tests\Feature\Auth;
 
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class RegisterTest extends TestCase
+class RegisterTest extends AuthTest
 {
-    use DatabaseMigrations;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->installPassport();
-    }
 
     /**
      * Test if guest users can hit the register endpoint
