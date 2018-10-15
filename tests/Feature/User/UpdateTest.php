@@ -11,8 +11,6 @@ use Tests\Traits\HasApiResource;
 class UpdateTest extends UserTest
 {
 
-
-
     /**
      * Test unauthenticated users can hit the update endpoint
      * @expected: false
