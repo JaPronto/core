@@ -7,14 +7,12 @@ before_script:
   - composer self-update
   - composer install --no-interaction
   - cp .env.travis .env
-  - pear install pear/PHP_CodeSniffer
   - phpenv rehash
-  - nvm install 7.7.1
+  - nvm install 8.12.0
   - npm install npm@latest -g
   - npm install
 script:
-  - vendor/bin/phpunit --corevarge-text
-  - phpcs --ignore=app/Http/Controllers/Auth,app/Http/Controllers/Controller.php app/Http/Controllers
+  - vendor/bin/phpunit --coverage-text
   - npm run production
 notifications:
   email:
