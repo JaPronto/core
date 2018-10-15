@@ -72,10 +72,13 @@ class DestroyTest extends CountryTest
             ->assertStatus(200);
 
         $countryData = $country->toArray();
-        unset($countryData['deleted_at']);
 
         // Then we assert database has updated record
-        $this->assertDatabaseHas('countries', $countryData);
+        $this->assertSoftDeleted('countries', [
+            'id' => $countryData['id'],
+            'name' => $countryData['name'],
+            'code' => $countryData['code']
+        ]);
     }
 
     /**
@@ -103,10 +106,14 @@ class DestroyTest extends CountryTest
             ->assertStatus(200);
 
         $countryData = $country->toArray();
-        unset($countryData['deleted_at']);
 
         // Then we assert database has updated record
-        $this->assertDatabaseHas('countries', $countryData);
+        $this->assertSoftDeleted('countries', [
+            'id' => $countryData['id'],
+            'name' => $countryData['name'],
+            'code' => $countryData['code']
+        ]);
+
 
         // Then we check again if the country can be viewed by eloquent
         $this->show($country->code)
