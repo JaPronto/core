@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Country;
+use App\Organization;
 use App\Policies\CountryPolicy;
+use App\Policies\OrganizationPolicy;
 use App\Policies\UserPolicy;
 use App\User;
 use Illuminate\Foundation\Http\FormRequest;
@@ -21,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Country::class => CountryPolicy::class,
         User::class => UserPolicy::class,
+        Organization::class => OrganizationPolicy::class,
     ];
 
     /**
