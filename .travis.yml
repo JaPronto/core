@@ -16,3 +16,6 @@ script:
   - vendor/bin/phpunit --corevarge-text
   - phpcs --ignore=app/Http/Controllers/Auth,app/Http/Controllers/Controller.php app/Http/Controllers
   - npm run production
+notifications:
+  email:
+    - reginaldo.junior696@gmail.com
