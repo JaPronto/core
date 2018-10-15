@@ -112,8 +112,6 @@ class UpdateTest extends TestCase
             ->assertSeeText($newCountry->get('name'))
             // Check if new country code is present on response body
             ->assertSeeText($newCountry->get('code'))
-            // Check if updated_at timestamp matches now
-            ->assertSeeText(now())
             // Check if response structure matches expected
             ->assertJsonStructure([
                 'data' => [
@@ -130,7 +128,6 @@ class UpdateTest extends TestCase
             'id' => $country->id,
             'name' => $newCountry->get('name'),
             'code' => $newCountry->get('code'),
-            'updated_at' => now()
         ]);
     }
 

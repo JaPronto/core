@@ -25,7 +25,7 @@ abstract class BaseRepository
      * @param bool $paginate
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function doQuery($query = null, $take = 15, $paginate = true)
+    public function doQuery($query = null, $take = 20, $paginate = true)
     {
         if (is_null($query)) {
             $query = $this->newQuery();
@@ -47,7 +47,7 @@ abstract class BaseRepository
      * @param $paginate
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getAll($take, $paginate)
+    public function getAll($take = 20, $paginate = true)
     {
         return $this->doQuery(null, $take, $paginate);
     }

@@ -18,7 +18,7 @@ class CountryController extends Controller
 
     public function __construct(CountryRepository $countryRepository)
     {
-        $this->middleware('auth:api')->except(['index', 'show']);
+        $this->middleware('auth')->except(['index', 'show']);
 
         $this->countryRepository = $countryRepository;
     }
@@ -31,7 +31,7 @@ class CountryController extends Controller
      */
     public function index(ViewCountryRequest $request)
     {
-        return CountryResource::collection($this->countryRepository->getAll(20, true));
+        return CountryResource::collection($this->countryRepository->getAll( ));
     }
 
     /**

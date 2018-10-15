@@ -23,7 +23,7 @@ class UserPolicy
      */
     public function view(User $user)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -35,7 +35,7 @@ class UserPolicy
      */
     public function show(User $user, User $model)
     {
-        return true;
+        return $user->getKey() === $model->getKey();
     }
 
     /**
@@ -46,7 +46,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return false;
     }
 
     /**

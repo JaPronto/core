@@ -17,6 +17,11 @@ abstract class TestCase extends BaseTestCase
         return $this;
     }
 
+    public function installPassport()
+    {
+        $this->artisan('passport:install');
+    }
+
     public function authenticatedAdmin($user = null)
     {
         $user = $user ?: create(User::class);
