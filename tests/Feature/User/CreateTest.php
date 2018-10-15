@@ -112,6 +112,11 @@ class CreateTest extends UserTest
         $this->assertCount(2, User::get());
     }
 
+    /**
+     * Creates a new create user request
+     * @param array $data
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
     public function create($data = [])
     {
         return $this->makePostRequest('store', $data);
