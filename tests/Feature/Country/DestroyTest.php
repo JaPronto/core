@@ -82,6 +82,7 @@ class DestroyTest extends TestCase
             ->assertStatus(200);
 
         $countryData = $country->toArray();
+        unset($countryData['deleted_at']);
 
         // Then we assert database has updated record
         $this->assertDatabaseHas('countries', $countryData);
@@ -112,6 +113,7 @@ class DestroyTest extends TestCase
             ->assertStatus(200);
 
         $countryData = $country->toArray();
+        unset($countryData['deleted_at']);
 
         // Then we assert database has updated record
         $this->assertDatabaseHas('countries', $countryData);
