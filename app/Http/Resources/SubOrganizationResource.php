@@ -23,7 +23,9 @@ class SubOrganizationResource extends JsonResource
             'country_id' => $this->country_id,
             'country' => new CountryResource($this->whenLoaded('country')),
             'organization_id' => $this->organization_id,
-            'organization' => new OrganizationResource($this->whenLoaded('organization'))
+            'organization' => new OrganizationResource($this->whenLoaded('organization')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }
