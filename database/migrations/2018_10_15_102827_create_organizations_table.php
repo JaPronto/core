@@ -17,6 +17,7 @@ class CreateOrganizationsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('country_id')->nullable();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->date('founded_at')->nullable();
             $table->string('description');
             $table->string('image')->nullable();

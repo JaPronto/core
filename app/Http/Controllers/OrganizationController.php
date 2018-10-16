@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Organization\CreateOrganizationRequest;
+use App\Http\Requests\Organization\DeleteOrganizationRequest;
+use App\Http\Requests\Organization\UpdateOrganizationRequest;
 use App\Http\Requests\Organization\ViewOrganizationRequest;
 use App\Http\Resources\OrganizationResource;
 use App\Organization;
@@ -15,6 +17,7 @@ class OrganizationController extends Controller
 
     public function __construct(OrganizationRepository $organizationRepository)
     {
+        $this->middleware('auth')->except(['index', 'show']);
         $this->organizationRepository = $organizationRepository;
     }
 
@@ -64,7 +67,7 @@ class OrganizationController extends Controller
      * @param  \App\Organization $organization
      * @return OrganizationResource
      */
-    public function update(Request $request, Organization $organization)
+    public function update(UpdateOrganizationRequest $request, Organization $organization)
     {
         return new OrganizationResource($this->organizationRepository->updateByModel($organization, $request->only([
             'name',
@@ -82,7 +85,7 @@ class OrganizationController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Organization $organization)
+    public function destroy(Organization $organization, DeleteOrganizationRequest $request)
     {
         if ($this->organizationRepository->deleteByModel($organization)) return response('', 200);
 

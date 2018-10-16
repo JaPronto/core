@@ -16,6 +16,7 @@ class CreateSubOrganizationsTable extends Migration
         Schema::create('sub_organizations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->date('founded_at')->nullable();
             $table->string('description');
             $table->unsignedInteger('organization_id');

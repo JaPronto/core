@@ -1,7 +1,8 @@
 <?php
 
 if (!function_exists('makeRequest')) {
-    function makeRequest($url, $method = 'GET', $data = []) {
+    function makeRequest($url, $method = 'GET', $data = [])
+    {
         $request = \Request::create($url, $method, $data);
         $response = \Route::dispatch($request);
 
@@ -10,7 +11,8 @@ if (!function_exists('makeRequest')) {
 }
 
 if (!function_exists('oauthLogin')) {
-    function oauthLogin($username, $password) {
+    function oauthLogin($username, $password)
+    {
         $oauthPasswordClient = resolve('OAUTH_PASSWORD_CLIENT');
 
         return resolve('api')->post('/oauth/token', [
@@ -21,5 +23,21 @@ if (!function_exists('oauthLogin')) {
             'password' => $password,
             'scope' => '*'
         ]);
+    }
+}
+
+if (!function_exists('uploadFile')) {
+    function uploadFile(\Illuminate\Http\UploadedFile $file, $path = '', $storage = 'public', $customName = null)
+    {
+        try {
+            $fileName = $customName ? $customName : $file->hashName();
+            $fileName = date('Y_m_d_H_i_s_') . $fileName;
+
+            $filePath = $file->storePubliclyAs($path, $fileName, $storage);
+
+            return $filePath;
+        } catch (\Exception $exception) {
+            return '';
+        }
     }
 }

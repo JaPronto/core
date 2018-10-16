@@ -23,6 +23,6 @@ abstract class UserTest extends DatabaseActiveTest
      */
     function apiResource(): string
     {
-        return 'user';
+        return 'users';
     }
 }
