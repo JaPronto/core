@@ -3,9 +3,9 @@
 namespace App\Repositories;
 
 
-use App\Organization;
+use App\SubOrganization;
 
 class SubOrganizationRepository extends BaseRepository
 {
-    protected $model = Organization::class;
+    protected $model = SubOrganization::class;
 }

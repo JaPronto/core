@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubOrganization\CreateSubOrganizationRequest;
+use App\Http\Requests\SubOrganization\DeleteSubOrganizationRequest;
+use App\Http\Requests\SubOrganization\ShowSubOrganizationRequest;
+use App\Http\Requests\SubOrganization\UpdateSubOrganizationRequest;
+use App\Http\Requests\SubOrganization\ViewSubOrganizationRequest;
 use App\Http\Resources\SubOrganizationResource;
 use App\Repositories\SubOrganizationRepository;
 use App\SubOrganization;
@@ -14,6 +19,8 @@ class SubOrganizationController extends Controller
     public function __construct(SubOrganizationRepository $subOrganizationRepository)
     {
         $this->subOrganizationRepository = $subOrganizationRepository;
+
+        $this->middleware('auth')->except(['index','show']);
     }
 
     /**
@@ -21,7 +28,7 @@ class SubOrganizationController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(ViewSubOrganizationRequest $request)
     {
         return SubOrganizationResource::collection($this->subOrganizationRepository->getAll());
     }
@@ -32,7 +39,7 @@ class SubOrganizationController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return SubOrganizationResource
      */
-    public function store(Request $request)
+    public function store(CreateSubOrganizationRequest $request)
     {
         return new SubOrganizationResource($this->subOrganizationRepository->create($request->only([
             'name',
@@ -49,7 +56,7 @@ class SubOrganizationController extends Controller
      * @param  \App\SubOrganization $subOrganization
      * @return SubOrganizationResource
      */
-    public function show(SubOrganization $subOrganization)
+    public function show(SubOrganization $subOrganization, ShowSubOrganizationRequest $request)
     {
         return new SubOrganizationResource($subOrganization);
     }
@@ -61,7 +68,7 @@ class SubOrganizationController extends Controller
      * @param  \App\SubOrganization $subOrganization
      * @return SubOrganizationResource
      */
-    public function update(Request $request, SubOrganization $subOrganization)
+    public function update(UpdateSubOrganizationRequest $request, SubOrganization $subOrganization)
     {
         return new SubOrganizationResource($this->subOrganizationRepository->updateByModel($subOrganization, $request->only([
             'name',
@@ -79,7 +86,7 @@ class SubOrganizationController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(SubOrganization $subOrganization)
+    public function destroy(SubOrganization $subOrganization, DeleteSubOrganizationRequest $request)
     {
         if ($this->subOrganizationRepository->deleteByModel($subOrganization)) return response('', 200);
 
