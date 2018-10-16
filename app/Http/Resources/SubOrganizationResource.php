@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrganizationResource extends JsonResource
+class SubOrganizationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,16 +15,14 @@ class OrganizationResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
             'name' => $this->name,
             'slug'=>$this->slug,
             'founded_at' => $this->founded_at,
+            'description' => $this->description,
             'country_id' => $this->country_id,
             'country' => new CountryResource($this->whenLoaded('country')),
-            'description' => $this->description,
-            'image' => url('storage/' . $this->image),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'organization_id' => $this->organization_id,
+            'organization' => new OrganizationResource($this->whenLoaded('organization'))
         ];
     }
 }
