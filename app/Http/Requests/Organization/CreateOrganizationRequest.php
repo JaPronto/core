@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Organization;
 
+use App\Organization;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateOrganizationRequest extends FormRequest
@@ -13,7 +14,7 @@ class CreateOrganizationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('create', Organization::class);
     }
 
     /**
@@ -24,7 +25,11 @@ class CreateOrganizationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string',
+            'founded_at' => 'required',
+            'country_id' => 'required|exists:countries,id',
+            'description' => 'required|string',
+            'image' => 'required|image'
         ];
     }
 }

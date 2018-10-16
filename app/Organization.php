@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Organization extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Sluggable;
 
     protected $fillable = [
       'name',
@@ -25,5 +26,24 @@ class Organization extends Model
     public function sub_organizations()
     {
         return $this->hasMany(SubOrganization::class);
+    }
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+          'slug' => [
+              'source' => 'name'
+          ]
+        ];
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

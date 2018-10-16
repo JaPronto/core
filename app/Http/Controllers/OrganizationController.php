@@ -15,6 +15,7 @@ class OrganizationController extends Controller
 
     public function __construct(OrganizationRepository $organizationRepository)
     {
+        $this->middleware('auth')->except(['index', 'show']);
         $this->organizationRepository = $organizationRepository;
     }
 

@@ -10,7 +10,7 @@ abstract class CountryTest extends DatabaseActiveTest
 {
     function apiResource(): string
     {
-        return 'country';
+        return 'countries';
     }
 
     public function createCountry($attributes = [], $times = null)

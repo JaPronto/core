@@ -61,7 +61,10 @@ class DestroyTest extends UserTest
             ->assertStatus(200);
 
         // Finally we assert the user is soft-deleted on database
-        $this->assertSoftDeleted('users', $user->toArray());
+        $this->assertSoftDeleted('users', [
+            'name' => $user->name,
+            'email' => $user->email
+        ]);
     }
 
     /**
@@ -81,7 +84,10 @@ class DestroyTest extends UserTest
             ->assertStatus(200);
 
         // Finally we assert the user is soft-deleted on database
-        $this->assertSoftDeleted('users', $user->toArray());
+        $this->assertSoftDeleted('users', [
+            'name' => $user->name,
+            'email' => $user->email
+        ]);
     }
 
     /**
