@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\SubOrganization;
 
+use App\SubOrganization;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSubOrganizationRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateSubOrganizationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('update', $this->getModel('sub_organization', SubOrganization::class));
     }
 
     /**
@@ -24,7 +25,11 @@ class UpdateSubOrganizationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'nullable|string',
+            'founded_at' => 'nullable',
+            'description' => 'nullable|string',
+            'country_id' => 'nullable|exists:countries,id',
+            'organization_id' => 'nullable|exists:organizations,id'
         ];
     }
 }

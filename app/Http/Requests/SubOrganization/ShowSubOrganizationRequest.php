@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\SubOrganization;
 
+use App\Organization;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ShowSubOrganizationRequest extends FormRequest
@@ -13,7 +14,7 @@ class ShowSubOrganizationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return !$this->user() || $this->user()->can('show', $this->getModel('sub_organization', Organization::class));
     }
 
     /**

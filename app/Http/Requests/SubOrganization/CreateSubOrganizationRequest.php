@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\SubOrganization;
 
+use App\SubOrganization;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateSubOrganizationRequest extends FormRequest
@@ -13,7 +14,7 @@ class CreateSubOrganizationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('create', SubOrganization::class);
     }
 
     /**
@@ -24,7 +25,11 @@ class CreateSubOrganizationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string',
+            'founded_at' => 'required',
+            'description' => 'required|string',
+            'country_id' => 'required|exists:countries,id',
+            'organization_id' => 'required|exists:organizations,id'
         ];
     }
 }

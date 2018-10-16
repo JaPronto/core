@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\SubOrganization;
 
+use App\SubOrganization;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DeleteSubOrganizationRequest extends FormRequest
@@ -13,7 +14,7 @@ class DeleteSubOrganizationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('delete', $this->getModel('sub_organization', SubOrganization::class));
     }
 
     /**
