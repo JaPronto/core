@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Organization;
 
+use App\Organization;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DeleteOrganizationRequest extends FormRequest
@@ -13,7 +14,7 @@ class DeleteOrganizationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('delete', $this->getModel('organization', Organization::class));
     }
 
     /**
