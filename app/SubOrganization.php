@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\Services\Translateable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SubOrganization extends Model
 {
-    use SoftDeletes, Sluggable;
+    use SoftDeletes, Sluggable, Translateable;
 
     protected $fillable = [
         'name',
