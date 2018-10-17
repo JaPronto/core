@@ -18,7 +18,7 @@ class CreateSubOrganizationsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->date('founded_at')->nullable();
-            $table->string('description');
+            $table->text('description');
             $table->unsignedInteger('organization_id');
             $table->unsignedInteger('country_id');
             $table->softDeletes();

@@ -19,7 +19,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->date('founded_at')->nullable();
-            $table->string('description');
+            $table->text('description');
             $table->string('image')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -6,7 +6,9 @@ use App\Country;
 use App\Organization;
 use App\Policies\CountryPolicy;
 use App\Policies\OrganizationPolicy;
+use App\Policies\SubOrganizationPolicy;
 use App\Policies\UserPolicy;
+use App\SubOrganization;
 use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
@@ -24,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         Country::class => CountryPolicy::class,
         User::class => UserPolicy::class,
         Organization::class => OrganizationPolicy::class,
+        SubOrganization::class => SubOrganizationPolicy::class,
     ];
 
     /**

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Organization;
+namespace App\Http\Requests\SubOrganization;
 
-use App\Organization;
+use App\SubOrganization;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowOrganizationRequest extends FormRequest
+class DeleteSubOrganizationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class ShowOrganizationRequest extends FormRequest
      */
     public function authorize()
     {
-        return !$this->user() || $this->user()->can('show', $this->getModel('organization', Organization::class));
+        return $this->user()->can('delete', $this->getModel('sub_organization', SubOrganization::class));
     }
 
     /**

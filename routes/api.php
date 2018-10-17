@@ -21,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('countries', 'CountryController');
 Route::apiResource('users', 'UserController');
 Route::apiResource('organizations', 'OrganizationController');
+Route::apiResource('sub-organizations', 'SubOrganizationController');
